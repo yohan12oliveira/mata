@@ -1,19 +1,33 @@
+// https://flame-engine.org/docs/input.md
+
 import 'dart:math';
 
 import 'package:flame/game.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:game_base/componentes/Spaceship.dart';
+import 'package:game_base/componentes/button_left.dart';
+import 'package:game_base/componentes/button_rigth.dart';
 import 'componentes/Dragon.dart';
 import 'componentes/Smyle.dart';
+import 'package:flame/gestures.dart';
+import 'package:flame/keyboard.dart';
 
 var game;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Flame.images.loadAll(['smiley.png', 'dragon.png', 'spaceship.png']);
+  Flame.images.loadAll([
+    'smiley.png',
+    'dragon.png',
+    'spaceship.png',
+    'play-button_rigth.png',
+    'play-button_left.png'
+  ]);
   var dimensions = await Flame.util.initialDimensions();
+
   game = JogoBase(dimensions);
 
   runApp(game.widget);
@@ -22,12 +36,21 @@ void main() async {
 Smyle smyle;
 Dragon dragon;
 Spaceship spaceship;
+ButtonLeft buttonLeft;
+ButtonRigth buttonRigth;
 
-class JogoBase extends BaseGame {
+bool isaAddNave = false;
+bool isAddButton = false;
+
+class JogoBase extends BaseGame with TapDetector {
   Size dimensions;
   Random random = new Random();
 
-  JogoBase(this.dimensions);
+  JogoBase(this.dimensions) {
+    spaceship = new Spaceship(dimensions);
+    buttonLeft = new ButtonLeft(dimensions);
+    // buttonRigth = new ButtonRigth(dimensions);
+  }
 
   @override
   void render(Canvas canvas) {
@@ -37,7 +60,16 @@ class JogoBase extends BaseGame {
   double creationTimer = 0.0;
   @override
   void update(double t) {
-    //add(spaceship);
+    if (!isaAddNave) {
+      add(spaceship);
+      isaAddNave = true;
+    }
+
+    if (!isAddButton) {
+      add(buttonLeft);
+      //  add(buttonRigth);
+      isAddButton = true;
+    }
 
     creationTimer += t;
     if (creationTimer >= 0.5) {
@@ -53,9 +85,6 @@ class JogoBase extends BaseGame {
       }
     }
 
-    spaceship = new Spaceship(dimensions);
-    add(spaceship);
-
     super.update(t);
   }
 
@@ -69,5 +98,19 @@ class JogoBase extends BaseGame {
 
   void movingLeft() {
     spaceship.direction = -1;
+  }
+
+  @override
+  void onTapDown(TapDownDetails details) {
+    print(
+        "Player tap down on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
+    movingRight();
+  }
+
+  @override
+  void onTapUp(TapUpDetails details) {
+    print(
+        "Player tap up on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
+    stopMoving();
   }
 }

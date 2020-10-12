@@ -21,6 +21,9 @@ class Dragon extends SpriteComponent {
 
   @override
   bool destroy() {
+    if (this.y > 550) {
+      return true;
+    }
     return false;
   }
 

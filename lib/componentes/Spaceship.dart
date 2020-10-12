@@ -27,6 +27,6 @@ class Spaceship extends SpriteComponent {
   @override
   void resize(Size size) {
     this.x = size.width / 2 - ComponentSize / 2;
-    this.y = size.height - ComponentSize;
+    this.y = size.height - ComponentSize - 50;
   }
 }
