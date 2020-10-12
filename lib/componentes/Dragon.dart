@@ -1,11 +1,8 @@
 import 'dart:math';
 
-import 'package:flame/game.dart';
 import 'package:flame/components/component.dart';
-import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/gestures.dart';
 
 const ComponentSize = 60.0;
 const SPEED = 150.0;

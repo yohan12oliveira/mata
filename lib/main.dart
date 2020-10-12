@@ -4,6 +4,7 @@ import 'package:flame/game.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:game_base/componentes/Spaceship.dart';
 import 'componentes/Dragon.dart';
 import 'componentes/Smyle.dart';
 
@@ -11,7 +12,7 @@ var game;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Flame.images.loadAll(['smiley.png', 'dragon.png']);
+  Flame.images.loadAll(['smiley.png', 'dragon.png', 'spaceship.png']);
   var dimensions = await Flame.util.initialDimensions();
   game = JogoBase(dimensions);
 
@@ -20,6 +21,7 @@ void main() async {
 
 Smyle smyle;
 Dragon dragon;
+Spaceship spaceship;
 
 class JogoBase extends BaseGame {
   Size dimensions;
@@ -35,6 +37,8 @@ class JogoBase extends BaseGame {
   double creationTimer = 0.0;
   @override
   void update(double t) {
+    //add(spaceship);
+
     creationTimer += t;
     if (creationTimer >= 0.5) {
       creationTimer = 0.0;
@@ -49,6 +53,21 @@ class JogoBase extends BaseGame {
       }
     }
 
+    spaceship = new Spaceship(dimensions);
+    add(spaceship);
+
     super.update(t);
+  }
+
+  void stopMoving() {
+    spaceship.direction = 0;
+  }
+
+  void movingRight() {
+    spaceship.direction = 1;
+  }
+
+  void movingLeft() {
+    spaceship.direction = -1;
   }
 }

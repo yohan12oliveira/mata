@@ -7,16 +7,16 @@ import 'package:flutter/widgets.dart';
 const ComponentSize = 60.0;
 const SPEED = 150.0;
 
-class Smyle extends SpriteComponent {
+class Spaceship extends SpriteComponent {
   Size dimensions;
-  Random random = new Random();
+  double direction = 0.0;
 
-  Smyle(this.dimensions) : super.square(ComponentSize, 'smiley.png');
+  Spaceship(this.dimensions) : super.square(ComponentSize, 'spaceship.png');
 
   @override
   void update(double t) {
     super.update(t);
-    this.y += t * SPEED;
+    x += 200 * t * direction;
   }
 
   @override
@@ -26,8 +26,7 @@ class Smyle extends SpriteComponent {
 
   @override
   void resize(Size size) {
-    var positionX = random.nextDouble();
-    this.x = positionX * 300;
-    this.y = 0;
+    this.x = size.width / 2 - ComponentSize / 2;
+    this.y = size.height - ComponentSize;
   }
 }
