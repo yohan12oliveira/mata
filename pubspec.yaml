@@ -53,6 +53,7 @@ flutter:
     - assets/images/spaceship.png
     - assets/images/play-button_left.png
     - assets/images/play-button_rigth.png  
+    - assets/images/bullet.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
