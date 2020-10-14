@@ -25,7 +25,7 @@ class ButtonLeft extends SpriteComponent {
 
   @override
   void resize(Size size) {
-    this.x = 0;
-    this.y = 100;
+    this.x = 10;
+    this.y = size.height - ComponentSize;
   }
 }

@@ -16,7 +16,8 @@ class Spaceship extends SpriteComponent {
   @override
   void update(double t) {
     super.update(t);
-    x += 200 * t * direction;
+    // x += 200 * t * direction;
+    x = direction;
   }
 
   @override
@@ -27,6 +28,6 @@ class Spaceship extends SpriteComponent {
   @override
   void resize(Size size) {
     this.x = size.width / 2 - ComponentSize / 2;
-    this.y = size.height - ComponentSize - 50;
+    this.y = size.height - ComponentSize;
   }
 }

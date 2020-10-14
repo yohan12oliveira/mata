@@ -25,7 +25,7 @@ class ButtonRigth extends SpriteComponent {
 
   @override
   void resize(Size size) {
-    this.x = size.width / 2 - ComponentSize / 2;
-    this.y = size.height - ComponentSize - 50;
+    this.x = size.width - ComponentSize - 10;
+    this.y = size.height - ComponentSize;
   }
 }
