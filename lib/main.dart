@@ -106,7 +106,6 @@ class JogoBase extends BaseGame with TapDetector {
   void onTapDown(TapDownDetails details) {
     print(
         "Player tap down on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
-    // movingRight();
     spaceship.direction = details.globalPosition.dx;
   }
 
@@ -114,6 +113,5 @@ class JogoBase extends BaseGame with TapDetector {
   void onTapUp(TapUpDetails details) {
     print(
         "Player tap up on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
-    // stopMoving();
   }
 }
