@@ -65,14 +65,6 @@ class JogoBase extends BaseGame with TapDetector {
       isaAddNave = true;
     }
 
-    /*
-    if (!isAddButton) {
-      add(buttonLeft);
-      add(buttonRigth);
-      isAddButton = true;
-    }
-    */
-
     creationTimer += t;
     if (creationTimer >= 0.5) {
       creationTimer = 0.0;
@@ -106,7 +98,6 @@ class JogoBase extends BaseGame with TapDetector {
   void onTapDown(TapDownDetails details) {
     print(
         "Player tap down on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
-    // movingRight();
     spaceship.direction = details.globalPosition.dx;
     tapInput(details.globalPosition);
   }
@@ -115,7 +106,6 @@ class JogoBase extends BaseGame with TapDetector {
   void onTapUp(TapUpDetails details) {
     print(
         "Player tap up on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
-    // stopMoving();
   }
 
   void tapInput(Offset position) {
