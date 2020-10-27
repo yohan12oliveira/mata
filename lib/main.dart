@@ -5,15 +5,14 @@ import 'dart:math';
 import 'package:flame/game.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:game_base/componentes/Spaceship.dart';
 import 'package:game_base/componentes/button_left.dart';
 import 'package:game_base/componentes/button_rigth.dart';
+import 'componentes/Bullet.dart';
 import 'componentes/Dragon.dart';
 import 'componentes/Smyle.dart';
 import 'package:flame/gestures.dart';
-import 'package:flame/keyboard.dart';
 
 var game;
 
@@ -24,7 +23,8 @@ void main() async {
     'dragon.png',
     'spaceship.png',
     'play-button_rigth.png',
-    'play-button_left.png'
+    'play-button_left.png',
+    'bullet.png'
   ]);
   var dimensions = await Flame.util.initialDimensions();
 
@@ -65,14 +65,6 @@ class JogoBase extends BaseGame with TapDetector {
       isaAddNave = true;
     }
 
-    /*
-    if (!isAddButton) {
-      add(buttonLeft);
-      add(buttonRigth);
-      isAddButton = true;
-    }
-    */
-
     creationTimer += t;
     if (creationTimer >= 0.5) {
       creationTimer = 0.0;
@@ -107,11 +99,17 @@ class JogoBase extends BaseGame with TapDetector {
     print(
         "Player tap down on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
     spaceship.direction = details.globalPosition.dx;
+    tapInput(details.globalPosition);
   }
 
   @override
   void onTapUp(TapUpDetails details) {
     print(
         "Player tap up on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
+  }
+
+  void tapInput(Offset position) {
+    Bullet bullet = new Bullet(position);
+    add(bullet);
   }
 }

@@ -2,19 +2,20 @@ import 'package:flame/components/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-const ComponentSize = 60.0;
+const ComponentSize = 30.0;
 const SPEED = 150.0;
 
-class Spaceship extends SpriteComponent {
-  Size dimensions;
+class Bullet extends SpriteComponent {
+  bool explode = false;
   double direction = 0.0;
+  Offset initialDirection;
 
-  Spaceship(this.dimensions) : super.square(ComponentSize, 'spaceship.png');
+  Bullet(this.initialDirection) : super.square(ComponentSize, 'bullet.png');
 
   @override
   void update(double t) {
     super.update(t);
-    x = direction;
+    this.y -= t * SPEED;
   }
 
   @override
@@ -24,7 +25,7 @@ class Spaceship extends SpriteComponent {
 
   @override
   void resize(Size size) {
-    this.x = size.width / 2 - ComponentSize / 2;
-    this.y = size.height - ComponentSize;
+    this.x = this.initialDirection.dx + 15;
+    this.y = size.height - 55;
   }
 }
