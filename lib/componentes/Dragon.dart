@@ -8,6 +8,7 @@ const ComponentSize = 60.0;
 const SPEED = 150.0;
 
 class Dragon extends SpriteComponent {
+  bool remove = false;
   Size dimensions;
   Random random = new Random();
 
@@ -24,7 +25,7 @@ class Dragon extends SpriteComponent {
     if (this.y > 600) {
       return true;
     }
-    return false;
+    return remove;
   }
 
   @override

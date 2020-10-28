@@ -41,6 +41,9 @@ ButtonRigth buttonRigth;
 
 bool isaAddNave = false;
 bool isAddButton = false;
+List<Dragon> dragonList;
+List<Smyle> smyleList;
+var points = 0;
 
 class JogoBase extends BaseGame with TapDetector {
   Size dimensions;
@@ -50,6 +53,8 @@ class JogoBase extends BaseGame with TapDetector {
     spaceship = new Spaceship(dimensions);
     buttonLeft = new ButtonLeft(dimensions);
     buttonRigth = new ButtonRigth(dimensions);
+    dragonList = <Dragon>[];
+    smyleList = <Smyle>[];
   }
 
   @override
@@ -72,12 +77,16 @@ class JogoBase extends BaseGame with TapDetector {
       print(escolha);
       if (escolha > 0) {
         smyle = new Smyle(dimensions);
+        smyleList.add(smyle);
         add(smyle);
       } else {
         dragon = new Dragon(dimensions);
+        dragonList.add(dragon);
         add(dragon);
       }
     }
+
+    print('Placar: $points');
 
     super.update(t);
   }
@@ -109,7 +118,7 @@ class JogoBase extends BaseGame with TapDetector {
   }
 
   void tapInput(Offset position) {
-    Bullet bullet = new Bullet(position);
+    Bullet bullet = new Bullet(dragonList, smyleList, position);
     add(bullet);
   }
 }
