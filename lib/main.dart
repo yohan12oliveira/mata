@@ -14,6 +14,8 @@ import 'componentes/Dragon.dart';
 import 'componentes/Smyle.dart';
 import 'package:flame/gestures.dart';
 
+const DRAGON_SIZE = 40.0;
+
 var game;
 
 void main() async {
@@ -24,8 +26,10 @@ void main() async {
     'spaceship.png',
     'play-button_rigth.png',
     'play-button_left.png',
-    'bullet.png'
+    'bullet.png',
+    'explosion-1.png'
   ]);
+  Flame.audio.load('explosion.mp3');
   var dimensions = await Flame.util.initialDimensions();
 
   game = JogoBase(dimensions);

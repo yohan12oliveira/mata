@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:game_base/main.dart';
 
 import 'Dragon.dart';
+import 'Explosion.dart';
 import 'Smyle.dart';
 
 const ComponentSize = 30.0;
@@ -38,6 +39,7 @@ class Bullet extends SpriteComponent {
             dragon.remove = true;
             points += 1;
             this.explode = true;
+            game.add(new Explosion(dragon));
           }
         }
       });
