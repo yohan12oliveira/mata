@@ -6,13 +6,13 @@ import 'package:flame/game.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:game_base/componentes/Spaceship.dart';
+import 'package:game_base/componentes/carro.dart';
 import 'package:game_base/componentes/button_left.dart';
 import 'package:game_base/componentes/button_rigth.dart';
 import 'componentes/Bullet.dart';
-import 'componentes/Dragon.dart';
-import 'componentes/Smyle.dart';
+import 'componentes/formiga.dart';
 import 'package:flame/gestures.dart';
+import 'package:game_base/componentes/fundo.dart';
 
 const DRAGON_SIZE = 40.0;
 
@@ -21,14 +21,15 @@ var game;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Flame.images.loadAll([
-    'smiley.png',
-    'dragon.png',
-    'spaceship.png',
+    'gramado.jpg',
+    'formiga.png',
+    'carro.png',
     'play-button_rigth.png',
     'play-button_left.png',
     'bullet.png',
     'explosion-1.png'
   ]);
+
   Flame.audio.load('explosion.mp3');
   var dimensions = await Flame.util.initialDimensions();
 
@@ -37,16 +38,15 @@ void main() async {
   runApp(game.widget);
 }
 
-Smyle smyle;
-Dragon dragon;
-Spaceship spaceship;
+Formiga formiga;
+Carro carro;
 ButtonLeft buttonLeft;
 ButtonRigth buttonRigth;
+Fundo fundo;
 
 bool isaAddNave = false;
 bool isAddButton = false;
-List<Dragon> dragonList;
-List<Smyle> smyleList;
+List<Formiga> dragonList;
 var points = 0;
 
 class JogoBase extends BaseGame with TapDetector {
@@ -54,11 +54,12 @@ class JogoBase extends BaseGame with TapDetector {
   Random random = new Random();
 
   JogoBase(this.dimensions) {
-    spaceship = new Spaceship(dimensions);
+    carro = new Carro(dimensions);
     buttonLeft = new ButtonLeft(dimensions);
     buttonRigth = new ButtonRigth(dimensions);
-    dragonList = <Dragon>[];
-    smyleList = <Smyle>[];
+    fundo = new Fundo(this.dimensions);
+    dragonList = <Formiga>[];
+    add(fundo);
   }
 
   @override
@@ -70,24 +71,16 @@ class JogoBase extends BaseGame with TapDetector {
   @override
   void update(double t) {
     if (!isaAddNave) {
-      add(spaceship);
+      add(carro);
       isaAddNave = true;
     }
 
     creationTimer += t;
     if (creationTimer >= 0.5) {
       creationTimer = 0.0;
-      int escolha = random.nextInt(2);
-      print(escolha);
-      if (escolha > 0) {
-        smyle = new Smyle(dimensions);
-        smyleList.add(smyle);
-        add(smyle);
-      } else {
-        dragon = new Dragon(dimensions);
-        dragonList.add(dragon);
-        add(dragon);
-      }
+      formiga = new Formiga(dimensions);
+      dragonList.add(formiga);
+      add(formiga);
     }
 
     print('Placar: $points');
@@ -96,22 +89,22 @@ class JogoBase extends BaseGame with TapDetector {
   }
 
   void stopMoving() {
-    spaceship.direction = 0;
+    carro.direction = 0;
   }
 
   void movingRight() {
-    spaceship.direction = 1;
+    carro.direction = 1;
   }
 
   void movingLeft() {
-    spaceship.direction = -1;
+    carro.direction = -1;
   }
 
   @override
   void onTapDown(TapDownDetails details) {
     print(
         "Player tap down on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
-    spaceship.direction = details.globalPosition.dx;
+    carro.direction = details.globalPosition.dx;
     tapInput(details.globalPosition);
   }
 
@@ -122,7 +115,7 @@ class JogoBase extends BaseGame with TapDetector {
   }
 
   void tapInput(Offset position) {
-    Bullet bullet = new Bullet(dragonList, smyleList, position);
+    Bullet bullet = new Bullet(dragonList, position);
     add(bullet);
   }
 }

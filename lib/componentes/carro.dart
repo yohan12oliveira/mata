@@ -5,11 +5,11 @@ import 'package:flutter/widgets.dart';
 const ComponentSize = 60.0;
 const SPEED = 150.0;
 
-class Spaceship extends SpriteComponent {
+class Carro extends SpriteComponent {
   Size dimensions;
   double direction = 0.0;
 
-  Spaceship(this.dimensions) : super.square(ComponentSize, 'spaceship.png');
+  Carro(this.dimensions) : super.square(ComponentSize, 'carro.png');
 
   @override
   void update(double t) {
